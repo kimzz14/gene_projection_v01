@@ -11,25 +11,27 @@ class BLOCK:
         self.sbjct_ePos = None
         self.isSet = False
     
-    def set(self,hsp):
+    def set(self,gene_sPos, gene_ePos, hsp):
         self.isSet = True
         self.hsp_LIST += [hsp]
 
         self.strand = hsp.strand
         self.chrom = hsp.chrom
+
         self.query_sPos = hsp.query_sPos
         self.query_ePos = hsp.query_ePos
+        
         self.sbjct_sPos = hsp.sbjct_sPos
         self.sbjct_ePos = hsp.sbjct_ePos
+
+        self.gene_sPos = gene_sPos
+        self.gene_ePos = gene_ePos
 
     def calc_coverage(self):
         if len(self.hsp_LIST) == 0:
             return 0.0
 
-        if self.strand == '+':
-            return (self.sbjct_ePos - self.sbjct_sPos + 1) / (self.query_ePos - self.query_sPos + 1)
-        else:
-            return (self.sbjct_sPos - self.sbjct_ePos + 1) / (self.query_ePos - self.query_sPos + 1)
+        return (self.query_ePos - self.query_sPos + 1) / (self.gene_ePos - self.gene_sPos + 1)
 
     def calc_identity(self):
         if len(self.hsp_LIST) == 0:
@@ -115,9 +117,9 @@ def read_blastn(fileName):
         gene_sPos = int(gene_sPos)
         gene_ePos = int(gene_ePos)
 
-        hsp = HSP(chrom, identity, query_sPos, query_ePos, sbjct_sPos, sbjct_ePos)
+        hsp = HSP(sbjct, identity, query_sPos, query_ePos, sbjct_sPos, sbjct_ePos)
         if block.isSet == False:
-            block.set(hsp)
+            block.set(gene_sPos, gene_ePos, hsp)
         else:
             block.extention(hsp)
 
