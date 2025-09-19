@@ -68,7 +68,11 @@ class BLOCK:
         self.hsp_LIST += [hsp]
         
     def text(self):
-        return f'{self.chrom}\t{self.strand}\t{self.query_sPos}\t{self.query_ePos}\t{self.sbjct_sPos}\t{self.sbjct_ePos}\t{self.calc_coverage()}\t{self.calc_identity()}\t{len(self.hsp_LIST)}'
+        if self.strand == '+':
+            return f'{self.chrom}\t{self.strand}\t{self.query_sPos}\t{self.query_ePos}\t{self.sbjct_sPos}\t{self.sbjct_ePos}\t{self.calc_coverage()}\t{self.calc_identity()}\t{len(self.hsp_LIST)}'
+        else:
+            return f'{self.chrom}\t{self.strand}\t{self.query_sPos}\t{self.query_ePos}\t{self.sbjct_ePos}\t{self.sbjct_sPos}\t{self.calc_coverage()}\t{self.calc_identity()}\t{len(self.hsp_LIST)}'
+            
 
 class HSP:
     def __init__(self, chrom, identity, query_sPos, query_ePos, sbjct_sPos, sbjct_ePos):
@@ -129,7 +133,7 @@ fi = open('gene.list')
 
 for line in fi:
     geneID = line.rstrip('\n')
-    fileName = f'merge/{geneID}.blastn'
+    fileName = f'result/{geneID}.blastn'
     if os.path.exists(fileName):
         print(f'{geneID}\t{read_blastn(fileName).text()}')
     else:
