@@ -3,7 +3,7 @@ import pysam
 
 fasta = pysam.FastaFile("../target/ref.fa")
 
-fi = open('gene.map')
+fi = open('passed.gene.map')
 
 legend_LIST = ['geneID', 'chrom', 'strand', 'query_sPos', 'query_ePos', 'sbjct_sPos', 'sbjct_ePos', 'coverage', 'identity', 'hspN']
 
