@@ -1,7 +1,7 @@
 feature = 'mrna'
 
 gene_DICT = {}
-fi = open('../01.gene_lift/gene.map')
+fi = open('../01.gene_lift/passed.gene.map')
 for line in fi:
     gene_id = line.rstrip('\n').split('\t')[0]
     gene_DICT[gene_id] = {}
@@ -21,6 +21,7 @@ fo = open('run01.sh', 'w')
 fi = open(f'../source/{feature}.list')
 for line in fi:
     mrna_id = line.rstrip('\n')
+    if not mrna_id in mrna_DICT: continue
     gene_id = mrna_DICT[mrna_id]
 
     if gene_id in gene_DICT:
