@@ -1,1 +1,1 @@
-cat gff3/* > mRNA.gff3
+python pipe/merge.py

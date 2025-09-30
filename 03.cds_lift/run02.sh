@@ -1,1 +1,1 @@
-cat gff3/* > cds.gff3
+python pipe/merge.py
