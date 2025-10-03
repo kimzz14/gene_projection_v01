@@ -102,7 +102,9 @@ def read_blastn(fileName):
     block = BLOCK()
 
     for line in fi:
-        query, sbjct, identity, alignment_length, mismatches, gap_openings, query_sPos, query_ePos, sbjct_sPos, sbjct_ePos, e_value, bit_score = line.rstrip('\n').split('\t')
+        data_LIST = line.rstrip('\n').split('\t')
+        if len(data_LIST) == 12: continue
+        query, sbjct, identity, alignment_length, mismatches, gap_openings, query_sPos, query_ePos, sbjct_sPos, sbjct_ePos, e_value, bit_score = data_LIST
         identity = float(identity)/100
         alignment_length = int(alignment_length)
         mismatches = int(mismatches)
